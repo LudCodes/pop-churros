@@ -1,0 +1,159 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            Int       @id @default(autoincrement())
+  name          String
+  email         String    @unique
+  password      String
+  role          String    @default("ADMIN")
+  mustChangePassword Boolean @default(true)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
+
+model Category {
+  id            Int       @id @default(autoincrement())
+  name          String
+  slug          String    @unique
+  description   String?
+  isFeatured    Boolean   @default(false)
+  isPromotion   Boolean   @default(false)
+  image         String?
+  products      Product[]
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
+
+model Product {
+  id            Int       @id @default(autoincrement())
+  name          String
+  description   String?
+  image         String?
+  status        String    @default("ACTIVE")
+  categoryId    Int
+  category      Category  @relation(fields: [categoryId], references: [id])
+  quoteItems    QuoteItem[]
+  contractItems ContractItem[]
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
+
+model Client {
+  id            Int       @id @default(autoincrement())
+  fullName      String
+  document      String
+  phone         String
+  whatsapp      String?
+  email         String
+  cep           String?
+  street        String?
+  number        String?
+  complement    String?
+  neighborhood  String?
+  city          String?
+  state         String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  quotes        Quote[]
+  contracts     Contract[]
+}
+
+model Quote {
+  id              Int       @id @default(autoincrement())
+  clientId        Int
+  client          Client    @relation(fields: [clientId], references: [id])
+  eventLocation   String?
+  deliveryDate    DateTime?
+  pickupDate      DateTime?
+  observations    String?
+  status          String    @default("PENDENTE")
+  subtotal        Float     @default(0)
+  freight         Float     @default(0)
+  discount        Float     @default(0)
+  total           Float     @default(0)
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  items           QuoteItem[]
+  contract        Contract?
+  notifications   Notification[]
+}
+
+model QuoteItem {
+  id            Int       @id @default(autoincrement())
+  quoteId       Int
+  quote         Quote     @relation(fields: [quoteId], references: [id])
+  productId     Int
+  product       Product   @relation(fields: [productId], references: [id])
+  quantity      Int       @default(1)
+  unitPrice     Float     @default(0)
+  subtotal      Float     @default(0)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
+
+model Contract {
+  id              Int       @id @default(autoincrement())
+  clientId        Int
+  client          Client    @relation(fields: [clientId], references: [id])
+  quoteId         Int?      @unique
+  quote           Quote?    @relation(fields: [quoteId], references: [id])
+  status          String    @default("DRAFT")
+  observations    String?
+  subtotal        Float     @default(0)
+  freight         Float     @default(0)
+  discount        Float     @default(0)
+  total           Float     @default(0)
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  items           ContractItem[]
+  notifications   Notification[]
+}
+
+model ContractItem {
+  id            Int       @id @default(autoincrement())
+  contractId    Int
+  contract      Contract  @relation(fields: [contractId], references: [id])
+  productId     Int
+  product       Product   @relation(fields: [productId], references: [id])
+  quantity      Int       @default(1)
+  unitPrice     Float     @default(0)
+  subtotal      Float     @default(0)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
+
+model Notification {
+  id            Int       @id @default(autoincrement())
+  type          String
+  message       String
+  isRead        Boolean   @default(false)
+  quoteId       Int?
+  quote         Quote?    @relation(fields: [quoteId], references: [id])
+  contractId    Int?
+  contract      Contract? @relation(fields: [contractId], references: [id])
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
+
+model Setting {
+  id            Int       @id @default(autoincrement())
+  companyName   String
+  cnpj          String?
+  address       String?
+  whatsapp      String?
+  email         String?
+  pixKey        String?
+  bank          String?
+  agency        String?
+  account       String?
+  logo          String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}

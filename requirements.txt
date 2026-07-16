@@ -1,0 +1,1 @@
+# Sem dependências externas; o backend usa a biblioteca padrão do Python.
