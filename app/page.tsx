@@ -15,8 +15,8 @@ export default function HomePage() {
             Gerencie produtos, categorias, clientes, orçamentos, contratos e comunicações em uma única plataforma profissional.
           </p>
           <div className="flex flex-wrap gap-4">
-            <Link href="/cliente" className="rounded-lg bg-brand-red px-6 py-3 font-semibold text-white">
-              Acessar portal do cliente
+            <Link href="/loja" className="rounded-lg bg-brand-red px-6 py-3 font-semibold text-white">
+              Acessar catálogo
             </Link>
             <Link href="/admin/login" className="rounded-lg border border-brand-red px-6 py-3 font-semibold text-brand-red">
               Acessar painel administrativo
