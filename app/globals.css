@@ -4,9 +4,11 @@
 
 :root {
   color-scheme: light;
+  --font-sans: 'Inter', Arial, Helvetica, sans-serif;
 }
 
 body {
-  @apply bg-brand-gray text-brand-dark;
-  font-family: Arial, Helvetica, sans-serif;
+  @apply bg-cream text-ink;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
 }
