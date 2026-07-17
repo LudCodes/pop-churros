@@ -1,38 +1,40 @@
 import Link from 'next/link';
+import { SiteShell } from '@/app/components/site-shell';
 
 export default function HomePage() {
   return (
-    <main className="min-h-screen bg-brand-gray text-brand-dark">
-      <section className="mx-auto flex max-w-6xl flex-col gap-8 px-6 py-20 lg:flex-row lg:items-center lg:justify-between">
-        <div className="max-w-2xl space-y-6">
-          <span className="inline-flex rounded-full bg-brand-red/10 px-4 py-2 text-sm font-semibold text-brand-red">
+    <SiteShell>
+      <section className="grid gap-8 lg:grid-cols-[1.2fr_0.8fr] lg:items-center">
+        <div className="space-y-6 rounded-[var(--radius-lg)] border border-[var(--border)] bg-[var(--surface)] p-8 shadow-soft">
+          <span className="inline-flex rounded-full bg-[var(--bg)] px-4 py-2 text-sm font-semibold uppercase tracking-[0.24em] text-[var(--muted)]">
             Pop Churros • Promoções e Eventos
           </span>
           <h1 className="text-4xl font-bold leading-tight sm:text-5xl">
-            Sistema completo para catálogo, orçamento e gestão de eventos.
+            Catálogo, carrinho e orçamento em uma experiência única.
           </h1>
-          <p className="text-lg text-brand-dark/80">
-            Gerencie produtos, categorias, clientes, orçamentos, contratos e comunicações em uma única plataforma profissional.
+          <p className="text-lg text-[var(--muted)]">
+            Explore produtos, defina o período da locação e solicite seu orçamento diretamente pelo WhatsApp com a equipe.
           </p>
           <div className="flex flex-wrap gap-4">
-            <Link href="/cliente" className="rounded-lg bg-brand-red px-6 py-3 font-semibold text-white">
-              Acessar portal do cliente
+            <Link href="/catalogo" className="btn-primary">
+              Ver catálogo
             </Link>
-            <Link href="/admin/login" className="rounded-lg border border-brand-red px-6 py-3 font-semibold text-brand-red">
-              Acessar painel administrativo
+            <Link href="/carrinho" className="btn-secondary">
+              Abrir carrinho
             </Link>
           </div>
         </div>
-        <div className="rounded-3xl bg-white p-8 shadow-xl">
+
+        <div className="rounded-[var(--radius-lg)] border border-[var(--border)] bg-[var(--surface)] p-8 shadow-soft">
           <h2 className="text-xl font-semibold">Funcionalidades</h2>
-          <ul className="mt-4 space-y-3 text-sm text-brand-dark/80">
-            <li>• Catálogo público com categorias e destaques</li>
-            <li>• Carrinho de orçamento com solicitação real</li>
-            <li>• Painel administrativo completo</li>
-            <li>• Geração de PDF e WhatsApp</li>
+          <ul className="mt-4 space-y-3 text-sm text-[var(--muted)]">
+            <li>• Catálogo público com categorias e busca</li>
+            <li>• Carrinho com período de locação e WhatsApp</li>
+            <li>• Painel administrativo com o mesmo tema</li>
+            <li>• Orçamentos gravados no backend real</li>
           </ul>
         </div>
       </section>
-    </main>
+    </SiteShell>
   );
 }

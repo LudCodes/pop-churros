@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { ThemeShell } from '@/app/components/theme-shell';
 
 export default function AdminLoginPage() {
   const [email, setEmail] = useState('topshops39@gmail.com');
@@ -26,17 +27,19 @@ export default function AdminLoginPage() {
   };
 
   return (
-    <main className="flex min-h-screen items-center justify-center bg-brand-gray px-6">
-      <div className="w-full max-w-md rounded-3xl bg-white p-8 shadow-xl">
-        <h1 className="text-2xl font-semibold">Acesso administrativo</h1>
-        <p className="mt-2 text-sm text-brand-dark/70">Entre com sua conta para gerenciar o sistema.</p>
-        <div className="mt-6 space-y-3">
-          <input value={email} onChange={(e) => setEmail(e.target.value)} className="w-full rounded-lg border border-black/10 px-4 py-3" placeholder="E-mail" />
-          <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} className="w-full rounded-lg border border-black/10 px-4 py-3" placeholder="Senha" />
-          <button onClick={login} className="w-full rounded-lg bg-brand-red px-4 py-3 font-semibold text-white">Entrar</button>
-          {error && <p className="text-sm text-brand-red">{error}</p>}
+    <ThemeShell>
+      <main className="flex min-h-screen items-center justify-center bg-[var(--bg)] px-6">
+        <div className="w-full max-w-md rounded-[var(--radius-lg)] border border-[var(--border)] bg-[var(--surface)] p-8 shadow-soft">
+          <h1 className="text-2xl font-semibold">Acesso administrativo</h1>
+          <p className="mt-2 text-sm text-[var(--muted)]">Entre com sua conta para gerenciar o sistema.</p>
+          <div className="mt-6 space-y-3">
+            <input value={email} onChange={(e) => setEmail(e.target.value)} className="w-full rounded-full border border-[var(--border)] px-4 py-3" placeholder="E-mail" />
+            <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} className="w-full rounded-full border border-[var(--border)] px-4 py-3" placeholder="Senha" />
+            <button onClick={login} className="btn-primary w-full">Entrar</button>
+            {error && <p className="text-sm text-[var(--muted)]">{error}</p>}
+          </div>
         </div>
-      </div>
-    </main>
+      </main>
+    </ThemeShell>
   );
 }
