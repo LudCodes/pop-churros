@@ -36,6 +36,7 @@ model Product {
   name          String
   description   String?
   image         String?
+  type          String    @default("ALUGUEL")
   status        String    @default("ACTIVE")
   categoryId    Int
   category      Category  @relation(fields: [categoryId], references: [id])
